@@ -15,6 +15,13 @@
                 box.classList.add('box');
                 box.addEventListener('mouseover', (e) => {
                     box.classList.add('coloured');
+                    if (colour){
+                        red = Math.random()*256;
+                        green = Math.random()*256;
+                        blue = Math.random()*256;
+                        box.setAttribute('style', 
+                            `background: rgb(${red}, ${green}, ${blue})`);
+                    }
                 })
                 container.appendChild(box);
             }
@@ -27,6 +34,8 @@
                 container.removeChild(container.lastChild);
             }
         }
+
+        let colour = false;
 
         const body = document.querySelector('body');
 
@@ -50,6 +59,24 @@
         })
 
         buttonContainer.appendChild(button);
+
+        const buttonColour = document.createElement('button');
+        buttonColour.classList.add('colour');
+        buttonColour.textContent = "Colour";
+        buttonColour.addEventListener('click', (e) => {
+            colour = true;
+        })
+
+        buttonContainer.appendChild(buttonColour);
+
+        const buttonBlack = document.createElement('button');
+        buttonBlack.classList.add('black');
+        buttonBlack.textContent = "Black";
+        buttonBlack.addEventListener('click', (e) => {
+            colour = false;
+        })
+        buttonContainer.appendChild(buttonBlack);
+
 
         body.appendChild(buttonContainer);
 
