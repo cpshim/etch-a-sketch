@@ -3,25 +3,55 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Etch-A-Sketch</title>
     </head>
     <body>
-
+        <h1>Etch-A-Sketch!</h1>
     </body>
     <script>
+        function createGrid(num){
+            for (i = 0; i < num*num; i++){
+                const box = document.createElement('div');
+                box.classList.add('box');
+                box.addEventListener('mouseover', (e) => {
+                    box.classList.add('coloured');
+                })
+                container.appendChild(box);
+            }
+            container.setAttribute('style', 
+                `grid-template-columns: repeat(${num}, auto);`)
+        }
+
+        function deleteGrid(){
+            while (container.firstChild){
+                container.removeChild(container.lastChild);
+            }
+        }
+
         const body = document.querySelector('body');
 
         const container = document.createElement('div');
         container.classList.add('container');
 
-        for (i = 0; i < 256; i++){
-            const box = document.createElement('div');
-            box.classList.add('box');
-            box.addEventListener('mouseover', (e) => {
-                box.classList.add('coloured');
-            })
-            container.appendChild(box);
-        }
+        createGrid(16);
 
         body.appendChild(container);
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('buttonContainer');
+
+        const button = document.createElement('button');
+        button.classList.add('reset');
+        button.textContent = "Reset";
+        button.addEventListener('click', (e) => {
+            numberOfBoxes = prompt("How many boxes on each side do you want?");
+            deleteGrid();
+            createGrid(numberOfBoxes);
+        })
+
+        buttonContainer.appendChild(button);
+
+        body.appendChild(buttonContainer);
+
     </script>
 </html>
